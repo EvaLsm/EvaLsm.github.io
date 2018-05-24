@@ -54,7 +54,7 @@
         .footer {
             background: #ffffff;
             position: fixed;
-            bottom: 0;
+            bottom: 0.3rem;
         }
 
         .footer .replay {
@@ -110,9 +110,11 @@
             display: none;
             margin: 0 auto;
         }
-        .grid_hide td{
+
+        .grid_hide td {
             background: #f0f0f0;
         }
+
         .container .grid .not_sure {
             background: pink;
         }
@@ -260,13 +262,6 @@
     </div>
 </div>
 <script type="text/javascript">
-    //表格DOM节点
-    var oDom = {
-        grid: document.getElementById('grid'),
-        replay: document.getElementsByClassName('replay'),
-        grid_hide: document.getElementById('grid_hide'),
-        submit: document.getElementsByClassName('submit')
-    };
 
     /*创建简单模式的数独（即：只需要行和列都满足数字1-9不重复）
     *
@@ -290,6 +285,15 @@
     * 3、抽取部分格子将数字隐藏 即可进行填补游戏
     * 
     * */
+
+    //表格DOM节点
+    var oDom = {
+        grid: document.getElementById('grid'),
+        replay: document.getElementsByClassName('replay'),
+        grid_hide: document.getElementById('grid_hide'),
+        submit: document.getElementsByClassName('submit')
+    };
+
     function createGame() {
         var arr = [
             [1, 2, 3, 4, 5, 6, 7, 8, 9],
@@ -309,6 +313,7 @@
 
     //横向打乱
     function randomX(arr) {
+        //生成乱序的[0,1,2,3,4,5,6,7,8]数组，用作调换横的下标
         var messArr = chaos();
         for (var i = 0; i < arr.length; i++) {
             var temp = [];
@@ -321,6 +326,7 @@
 
     //纵向打乱
     function randomY(arr) {
+        //生成乱序的[0,1,2,3,4,5,6,7,8]数组，用作调换列的下标
         var messArr = chaos();
         for (var i = 0; i < arr.length; i++) {
             var messVal = messArr.shift();
@@ -351,22 +357,24 @@
         return arrNum
     }
 
-    //初始化（将部分格子隐藏）
+    //初始化（将部分格子隐藏，留给玩家填补
     function init() {
         var gridArr = createGame();
         var len = gridArr.length;
+        //先将符合规则的完整数组放到网格中
         for (var i = 0; i < len; i++) {
             for (var j = 0; j < len; j++) {
                 var cells = document.getElementsByClassName('grid_' + i + '_' + j);
                 cells[0].innerHTML = gridArr[i][j];
             }
         }
+        //每行随机选择几个格子，将格子中的值设为空，以供玩家填补
         for (var n = 0; n < len; n++) {
             for (var m = 0; m < 4; m++) {
                 var random = Math.floor(Math.random() * 9);
                 var cells = document.getElementsByClassName('grid_' + n + '_' + random);
                 cells[0].innerHTML = null;
-                //预设小选择面板 是否可以打开
+                //预设选择面板，是否可以打开。隐藏的格子能打开选择面板，电脑自动填补的格子不能打开选择面板
                 cells[0].setAttribute('small_grid_show', 1)
             }
         }
@@ -374,29 +382,32 @@
 
     //格子点击填数事件
     function pushData() {
+        //遍历网格的每一个格子
         var tr = oDom.grid.getElementsByTagName('tr');
         for (var i = 0; i < tr.length; i++) {
             var td = tr[i].getElementsByTagName('td');
             for (var j = 0; j < td.length; j++) {
+                //某个格子的点击事件
                 td[j].onclick = function (ev) {
                     var ev = ev || window.event;
                     var target = ev.target || ev.srcElement;
                     if (target.nodeName.toLowerCase() == 'td') {
                         var small_grid_show = this.getAttribute('small_grid_show');
-                        //是否能打开面板 ： 1、被抹掉，需要玩家填写的格子 可以打开面板。2、电脑自动生成，无需玩家填写的格子，不能打开选择面板
+                        //是否能打开面板 ： 1、被抹掉，需要玩家填写的格子 可以打开选择面板。2、电脑自动生成，无需玩家填写的格子，不能打开选择面板
                         if (small_grid_show == 1) {
                             //获取鼠标的位置
                             var scrollX = document.documentElement.scrollLeft || document.body.scrollLeft;
                             var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
                             var x = ev.pageX || ev.clientX + scrollX;
                             var y = ev.pageY || ev.clientY + scrollY;
-                            //现实选择面板
+                            //显示选择面板
                             oDom.grid_hide.style.display = 'block';
                             oDom.grid_hide.style.position = 'absolute';
                             oDom.grid_hide.style.left = (x - 50) + 'px';
                             oDom.grid_hide.style.top = (y - 50) + 'px';
-                            //获取当前点击点的class 传入选择面板，为方便选择面板选择之后设置数组表格子的值
+                            //获取当前点击点的class 传入选择面板，为方便选择面板选择之后设置 数独网格的值。
                             var className = this.getAttribute('class');
+                            //选择面板点击事件
                             choose(className);
                         } else {
                             oDom.grid_hide.style.display = 'none';
@@ -407,31 +418,29 @@
         }
     }
 
-    //选择小面板 点击事件
+    //选择面板 点击事件
     function choose(className) {
+        //遍历面板每一个格子
         var tr = oDom.grid_hide.getElementsByTagName('tr');
         for (var i = 0; i < tr.length; i++) {
             var td = tr[i].getElementsByTagName('td');
             for (var j = 0; j < td.length; j++) {
+                //某个格子点击事件
                 td[j].onclick = function (ev) {
                     var ev = ev || window.event;
                     var target = ev.target || ev.srcElement;
                     if (target.nodeName.toLowerCase() == 'td') {
                         //区分选择面板是选择了数字值、绿色底色，粉红色底色或者清空格子。
                         var specialDom = this.getAttribute('class');
-                        //绿色底色
-                        if (specialDom == 'sure') {
+                        if (specialDom == 'sure') {//绿色底色
                             document.getElementsByClassName(className)[0].style.backgroundColor = 'lightgreen';
-                            //粉红色底色
-                        } else if (specialDom == 'not_sure') {
+                        } else if (specialDom == 'not_sure') {//粉红色底色
                             document.getElementsByClassName(className)[0].style.backgroundColor = 'pink';
-                            //清空
-                        } else if (specialDom == 'clear') {
+                        } else if (specialDom == 'clear') {//清空
                             document.getElementsByClassName(className)[0].innerHTML = null;
                             document.getElementsByClassName(className)[0].style.backgroundColor = '#fff';
                             oDom.grid_hide.style.display = 'none';
-                            //填入数值
-                        } else {
+                        } else {//填入数值
                             var chooseVal = this.innerHTML;
                             document.getElementsByClassName(className)[0].innerHTML = chooseVal;
                             oDom.grid_hide.style.display = 'none';
@@ -452,7 +461,7 @@
             var tempArr = [],
                 modArr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
             for (var j = 0; j < 9; j++) {
-                if (!arr[i][j]) {
+                if (!arr[i][j]) {//有未填的格，返回false
                     return false
                 } else {
                     tempArr.push(arr[i][j])
@@ -461,7 +470,7 @@
             if (tempArr.length != 9) {
                 return false
             } else {
-                if (tempArr.sort().toString() != modArr.sort().toString()) {
+                if (tempArr.sort().toString() != modArr.toString()) {//先排序，然后与标准数组对比，不相等则为false
                     return false
                 }
             }
@@ -475,7 +484,7 @@
             var tempArr = [],
                 modArr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
             for (var j = 0; j < 9; j++) {
-                if (!arr[j][i]) {
+                if (!arr[j][i]) {//有未填的格，返回false
                     return false
                 } else {
                     tempArr.push(arr[j][i])
@@ -484,7 +493,7 @@
             if (tempArr.length != 9) {
                 return false
             } else {
-                if (tempArr.sort().toString() != modArr.sort().toString()) {
+                if (tempArr.sort().toString() != modArr.sort().toString()) {//先排序，然后与标准数组对比，不相等则为false
                     return false
                 }
             }
@@ -523,7 +532,7 @@
         submit();
         oDom.replay[0].onclick = function () {
             var Q = confirm('重新开始？');
-            if(Q){
+            if (Q) {
                 init();
             }
         };
