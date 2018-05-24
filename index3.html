@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport"
+          content="initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,target-densitydpi=medium-dpi">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-touch-fullscreen" content="YES">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script>
+        (function (doc, win) {
+            var docEl = doc.documentElement,
+                resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                recalc = function () {
+                    var clientWidth = docEl.clientWidth;
+                    if (!clientWidth) return;
+                    var Size = Number(100 * (clientWidth / 750)).toFixed(2);
+                    if (Size < 42) {
+                        Size = 42;
+                    } else if (Size > 80) {
+                        Size = 80;
+                    } else {
+                        Size = Size;
+                    }
+                    var Size = Size + 'px';
+                    window.localStorage.SizeBj = Size;
+                    docEl.style.fontSize = window.localStorage.SizeBj || Size;
+                };
+            if (!doc.addEventListener) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener('DOMContentLoaded', recalc, false);//DOMContentLoaded:兼容firefox
+        })(document, window);
+    </script>
+    <style type="text/css">
+        html, body, * {
+            padding: 0;
+            margin: 0;
+            background: #f0f0f0;
+        }
+
+        .header, .footer {
+            width: 100%;
+            height: 1rem;
+            line-height: 1rem;
+            font-weight: normal;
+            font-size: 0.36rem;
+            text-align: center;
+            background: #3b7be6;
+        }
+
+        .footer {
+            background: #ffffff;
+            position: fixed;
+            bottom: 0rem;
+        }
+
+        .footer .replay {
+            border: none;
+            width: 49%;
+            height: 1rem;
+            line-height: 1rem;
+            font-weight: normal;
+            font-size: 0.36rem;
+            text-align: center;
+            background: #3b7be6;
+            color: #f0f0f0;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .footer .submit {
+            border: none;
+            width: 49%;
+            height: 1rem;
+            line-height: 1rem;
+            font-weight: normal;
+            font-size: 0.36rem;
+            text-align: center;
+            background: #3b7be6;
+            color: #f0f0f0;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .grid {
+            margin: 2rem auto;
+            font-size: 0.25rem;
+            border: solid 1px #ccc;
+            border-left: none;
+            border-bottom: none;
+        }
+
+        .grid td {
+            background: #fff;
+            text-align: center;
+            width: 0.6rem;
+            height: 0.7rem;
+            line-height: 0.7rem;
+            margin: 0;
+            border: solid 1px #ccc;
+            border-right: none;
+            border-top: none;
+        }
+
+        .grid_hide {
+            display: none;
+            margin: 0 auto;
+        }
+
+        .container .grid .not_sure {
+            background: pink;
+        }
+
+        .container .grid .sure {
+            background: lightgreen;
+        }
+
+        .container .grid .clear {
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <p class="header">数独游戏</p>
+    <table id="grid" class="grid" cellspacing=0 cellpadding=0>
+        <tr>
+            <td class="grid_0_0"></td>
+            <td class="grid_0_1"></td>
+            <td class="grid_0_2"></td>
+            <td class="grid_0_3"></td>
+            <td class="grid_0_4"></td>
+            <td class="grid_0_5"></td>
+            <td class="grid_0_6"></td>
+            <td class="grid_0_7"></td>
+            <td class="grid_0_8"></td>
+        </tr>
+        <tr>
+            <td class="grid_1_0"></td>
+            <td class="grid_1_1"></td>
+            <td class="grid_1_2"></td>
+            <td class="grid_1_3"></td>
+            <td class="grid_1_4"></td>
+            <td class="grid_1_5"></td>
+            <td class="grid_1_6"></td>
+            <td class="grid_1_7"></td>
+            <td class="grid_1_8"></td>
+        </tr>
+        <tr>
+            <td class="grid_2_0"></td>
+            <td class="grid_2_1"></td>
+            <td class="grid_2_2"></td>
+            <td class="grid_2_3"></td>
+            <td class="grid_2_4"></td>
+            <td class="grid_2_5"></td>
+            <td class="grid_2_6"></td>
+            <td class="grid_2_7"></td>
+            <td class="grid_2_8"></td>
+        </tr>
+        <tr>
+            <td class="grid_3_0"></td>
+            <td class="grid_3_1"></td>
+            <td class="grid_3_2"></td>
+            <td class="grid_3_3"></td>
+            <td class="grid_3_4"></td>
+            <td class="grid_3_5"></td>
+            <td class="grid_3_6"></td>
+            <td class="grid_3_7"></td>
+            <td class="grid_3_8"></td>
+        </tr>
+        <tr>
+            <td class="grid_4_0"></td>
+            <td class="grid_4_1"></td>
+            <td class="grid_4_2"></td>
+            <td class="grid_4_3"></td>
+            <td class="grid_4_4"></td>
+            <td class="grid_4_5"></td>
+            <td class="grid_4_6"></td>
+            <td class="grid_4_7"></td>
+            <td class="grid_4_8"></td>
+        </tr>
+        <tr>
+            <td class="grid_5_0"></td>
+            <td class="grid_5_1"></td>
+            <td class="grid_5_2"></td>
+            <td class="grid_5_3"></td>
+            <td class="grid_5_4"></td>
+            <td class="grid_5_5"></td>
+            <td class="grid_5_6"></td>
+            <td class="grid_5_7"></td>
+            <td class="grid_5_8"></td>
+        </tr>
+        <tr>
+            <td class="grid_6_0"></td>
+            <td class="grid_6_1"></td>
+            <td class="grid_6_2"></td>
+            <td class="grid_6_3"></td>
+            <td class="grid_6_4"></td>
+            <td class="grid_6_5"></td>
+            <td class="grid_6_6"></td>
+            <td class="grid_6_7"></td>
+            <td class="grid_6_8"></td>
+        </tr>
+        <tr>
+            <td class="grid_7_0"></td>
+            <td class="grid_7_1"></td>
+            <td class="grid_7_2"></td>
+            <td class="grid_7_3"></td>
+            <td class="grid_7_4"></td>
+            <td class="grid_7_5"></td>
+            <td class="grid_7_6"></td>
+            <td class="grid_7_7"></td>
+            <td class="grid_7_8"></td>
+        </tr>
+        <tr>
+            <td class="grid_8_0"></td>
+            <td class="grid_8_1"></td>
+            <td class="grid_8_2"></td>
+            <td class="grid_8_3"></td>
+            <td class="grid_8_4"></td>
+            <td class="grid_8_5"></td>
+            <td class="grid_8_6"></td>
+            <td class="grid_8_7"></td>
+            <td class="grid_8_8"></td>
+        </tr>
+    </table>
+    <table id="grid_hide" class="grid grid_hide" cellspacing=0 cellpadding=0>
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>5</td>
+            <td>6</td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>8</td>
+            <td>9</td>
+        </tr>
+        <tr>
+            <td class="not_sure"></td>
+            <td class="sure"></td>
+            <td class="clear">清空</td>
+        </tr>
+    </table>
+    <div class="footer">
+        <button class="replay">重玩</button>
+        <button class="submit">提交</button>
+    </div>
+</div>
+<script type="text/javascript">
+    //表格DOM节点
+    var oDom = {
+        grid: document.getElementById('grid'),
+        replay: document.getElementsByClassName('replay'),
+        grid_hide: document.getElementById('grid_hide'),
+        submit: document.getElementsByClassName('submit')
+    };
+
+    /*创建简单模式的数独（即：只需要行和列都满足数字1-9不重复）
+    *
+    * 一、思路
+    * 1、首先创建以下二维数组
+    * arr = [
+    * [1,2,3,4,5,6,7,8,9]，
+    * [2,3,4,5,6,7,8,9,1]，
+    * [3,4,5,6,7,8,9,1,2]，
+    * [4,5,6,7,8,9,1,2,3]，
+    * [5,6,7,8,9,1,2,3,4]，
+    * [6,7,8,9,1,2,3,4,5]，
+    * [7,8,9,1,2,3,4,5,6]，
+    * [8,9,1,2,3,4,5,6,7]，
+    * [9,1,2,3,4,5,6,7,8]
+    * ]
+    * 2、按照行 将每个整一行顺序打乱 或者 按照列 将内个整一列顺序打乱，即：
+    * 数组arr[0] - arr[9] 互换顺序，
+    * 或者 数组 arr[i][0] - arr[i][9] 互换顺序， 并不会影响数独规则，不影响完整性
+    *
+    * 3、抽取部分格子将数字隐藏 即可进行填补游戏
+    * 
+    * */
+    function createGame() {
+        var arr = [
+            [1, 2, 3, 4, 5, 6, 7, 8, 9],
+            [2, 3, 4, 5, 6, 7, 8, 9, 1],
+            [3, 4, 5, 6, 7, 8, 9, 1, 2],
+            [4, 5, 6, 7, 8, 9, 1, 2, 3],
+            [5, 6, 7, 8, 9, 1, 2, 3, 4],
+            [6, 7, 8, 9, 1, 2, 3, 4, 5],
+            [7, 8, 9, 1, 2, 3, 4, 5, 6],
+            [8, 9, 1, 2, 3, 4, 5, 6, 7],
+            [9, 1, 2, 3, 4, 5, 6, 7, 8]
+        ];
+        randomX(arr);
+        randomY(arr);
+        return arr;
+    }
+
+    //横向打乱
+    function randomX(arr) {
+        var messArr = chaos();
+        for (var i = 0; i < arr.length; i++) {
+            var temp = [];
+            var messVal = messArr.shift();
+            temp = arr[i];
+            arr[i] = arr[messVal];
+            arr[messVal] = temp;
+        }
+    }
+
+    //纵向打乱
+    function randomY(arr) {
+        var messArr = chaos();
+        for (var i = 0; i < arr.length; i++) {
+            var messVal = messArr.shift();
+            for (var j = 0; j < arr.length; j++) {
+                var temp = [];
+                temp = arr[j][i];
+                arr[j][i] = arr[j][messVal];
+                arr[j][messVal] = temp;
+            }
+        }
+    }
+
+    //生成乱序的数组[0,1,2,3,4,5,6,7,8]
+    function chaos() {
+        var arrNum = [];
+        var len = 9;
+        for (var i = 0; i < len; i++) {
+            arrNum[i] = Math.floor(Math.random() * len);
+            if (i > 0) {
+                for (var j = 0; j < i; j++) {
+                    if (arrNum[j] == arrNum[i]) {
+                        i--;
+                        break;
+                    }
+                }
+            }
+        }
+        return arrNum
+    }
+
+    //初始化（将部分格子隐藏）
+    function init() {
+        var gridArr = createGame();
+        var len = gridArr.length;
+        for (var i = 0; i < len; i++) {
+            for (var j = 0; j < len; j++) {
+                var cells = document.getElementsByClassName('grid_' + i + '_' + j);
+                cells[0].innerHTML = gridArr[i][j];
+            }
+        }
+        for (var n = 0; n < len; n++) {
+            for (var m = 0; m < 4; m++) {
+                var random = Math.floor(Math.random() * 9);
+                var cells = document.getElementsByClassName('grid_' + n + '_' + random);
+                cells[0].innerHTML = null;
+                //预设小选择面板 是否可以打开
+                cells[0].setAttribute('small_grid_show', 1)
+            }
+        }
+    }
+
+    //格子点击填数事件
+    function pushData() {
+        var tr = oDom.grid.getElementsByTagName('tr');
+        for (var i = 0; i < tr.length; i++) {
+            var td = tr[i].getElementsByTagName('td');
+            for (var j = 0; j < td.length; j++) {
+                td[j].onclick = function (ev) {
+                    var ev = ev || window.event;
+                    var target = ev.target || ev.srcElement;
+                    if (target.nodeName.toLowerCase() == 'td') {
+                        var small_grid_show = this.getAttribute('small_grid_show');
+                        //是否能打开面板 ： 1、被抹掉，需要玩家填写的格子 可以打开面板。2、电脑自动生成，无需玩家填写的格子，不能打开选择面板
+                        if (small_grid_show == 1) {
+                            //获取鼠标的位置
+                            var scrollX = document.documentElement.scrollLeft || document.body.scrollLeft;
+                            var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
+                            var x = ev.pageX || ev.clientX + scrollX;
+                            var y = ev.pageY || ev.clientY + scrollY;
+                            //现实选择面板
+                            oDom.grid_hide.style.display = 'block';
+                            oDom.grid_hide.style.position = 'absolute';
+                            oDom.grid_hide.style.left = (x - 50) + 'px';
+                            oDom.grid_hide.style.top = (y - 50) + 'px';
+                            //获取当前点击点的class 传入选择面板，为方便选择面板选择之后设置数组表格子的值
+                            var className = this.getAttribute('class');
+                            choose(className);
+                        } else {
+                            oDom.grid_hide.style.display = 'none';
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    //选择小面板 点击事件
+    function choose(className) {
+        var tr = oDom.grid_hide.getElementsByTagName('tr');
+        for (var i = 0; i < tr.length; i++) {
+            var td = tr[i].getElementsByTagName('td');
+            for (var j = 0; j < td.length; j++) {
+                td[j].onclick = function (ev) {
+                    var ev = ev || window.event;
+                    var target = ev.target || ev.srcElement;
+                    if (target.nodeName.toLowerCase() == 'td') {
+                        //区分选择面板是选择了数字值、绿色底色，粉红色底色或者清空格子。
+                        var specialDom = this.getAttribute('class');
+                        //绿色底色
+                        if (specialDom == 'sure') {
+                            document.getElementsByClassName(className)[0].style.backgroundColor = 'lightgreen';
+                            //粉红色底色
+                        } else if (specialDom == 'not_sure') {
+                            document.getElementsByClassName(className)[0].style.backgroundColor = 'pink';
+                            //清空
+                        } else if (specialDom == 'clear') {
+                            document.getElementsByClassName(className)[0].innerHTML = null;
+                            document.getElementsByClassName(className)[0].style.backgroundColor = '#fff';
+                            oDom.grid_hide.style.display = 'none';
+                            //填入数值
+                        } else {
+                            var chooseVal = this.innerHTML;
+                            document.getElementsByClassName(className)[0].innerHTML = chooseVal;
+                            oDom.grid_hide.style.display = 'none';
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    //检查行
+    /*
+    * 循环获取每行的数据 判断每格是否有空 有则返回false 结束
+    * 无空 则排序，判断是否与数组[1,2,3,4,5,6,7,8,9]相等 sort
+    * */
+    function checkX(arr) {
+        for (var i = 0; i < 9; i++) {
+            var tempArr = [],
+                modArr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+            for (var j = 0; j < 9; j++) {
+                if (!arr[i][j]) {
+                    return false
+                } else {
+                    tempArr.push(arr[i][j])
+                }
+            }
+            if (tempArr.length != 9) {
+                return false
+            } else {
+                if (tempArr.sort().toString() != modArr.sort().toString()) {
+                    return false
+                }
+            }
+        }
+        return true
+    }
+
+    //检查列
+    function checkY(arr) {
+        for (var i = 0; i < 9; i++) {
+            var tempArr = [],
+                modArr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+            for (var j = 0; j < 9; j++) {
+                if (!arr[j][i]) {
+                    return false
+                } else {
+                    tempArr.push(arr[j][i])
+                }
+            }
+            if (tempArr.length != 9) {
+                return false
+            } else {
+                if (tempArr.sort().toString() != modArr.sort().toString()) {
+                    return false
+                }
+            }
+        }
+        return true
+    }
+
+    //提交结果
+    function submit() {
+        oDom.submit[0].onclick = function () {
+            var arr = [];
+            //获取每格子的值，放入二维数组
+            var tr = oDom.grid.getElementsByTagName('tr');
+            for (var i = 0; i < tr.length; i++) {
+                arr[i] = [];
+                var td = tr[i].getElementsByTagName('td');
+                for (var j = 0; j < td.length; j++) {
+                    var val = Number(td[j].innerHTML);
+                    arr[i][j] = val;
+                }
+            }
+            //检查行列是否符合规则
+            var trueX = checkX(arr);
+            var trueY = checkY(arr);
+            if (trueX && trueY) {
+                alert('恭喜解数组成功')
+            } else {
+                alert('非常遗憾，还有格子没连正确，请检查');
+            }
+        }
+    }
+
+    window.onload = function (ev) {
+        init();
+        pushData();
+        submit();
+        oDom.replay[0].onclick = function () {
+            init();
+        };
+    }
+</script>
+</body>
+</html>
