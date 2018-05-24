@@ -54,7 +54,7 @@
         .footer {
             background: #ffffff;
             position: fixed;
-            bottom: 0rem;
+            bottom: 0.3rem;
         }
 
         .footer .replay {
@@ -86,7 +86,7 @@
         }
 
         .grid {
-            margin: 2rem auto;
+            margin: 0.7rem auto 3.5rem auto;
             font-size: 0.25rem;
             border: solid 1px #ccc;
             border-left: none;
@@ -106,10 +106,13 @@
         }
 
         .grid_hide {
+            border-width: 2px;
             display: none;
             margin: 0 auto;
         }
-
+        .grid_hide td{
+            background: #f0f0f0;
+        }
         .container .grid .not_sure {
             background: pink;
         }
@@ -126,129 +129,131 @@
 <body>
 <div class="container">
     <p class="header">数独游戏</p>
-    <table id="grid" class="grid" cellspacing=0 cellpadding=0>
-        <tr>
-            <td class="grid_0_0"></td>
-            <td class="grid_0_1"></td>
-            <td class="grid_0_2"></td>
-            <td class="grid_0_3"></td>
-            <td class="grid_0_4"></td>
-            <td class="grid_0_5"></td>
-            <td class="grid_0_6"></td>
-            <td class="grid_0_7"></td>
-            <td class="grid_0_8"></td>
-        </tr>
-        <tr>
-            <td class="grid_1_0"></td>
-            <td class="grid_1_1"></td>
-            <td class="grid_1_2"></td>
-            <td class="grid_1_3"></td>
-            <td class="grid_1_4"></td>
-            <td class="grid_1_5"></td>
-            <td class="grid_1_6"></td>
-            <td class="grid_1_7"></td>
-            <td class="grid_1_8"></td>
-        </tr>
-        <tr>
-            <td class="grid_2_0"></td>
-            <td class="grid_2_1"></td>
-            <td class="grid_2_2"></td>
-            <td class="grid_2_3"></td>
-            <td class="grid_2_4"></td>
-            <td class="grid_2_5"></td>
-            <td class="grid_2_6"></td>
-            <td class="grid_2_7"></td>
-            <td class="grid_2_8"></td>
-        </tr>
-        <tr>
-            <td class="grid_3_0"></td>
-            <td class="grid_3_1"></td>
-            <td class="grid_3_2"></td>
-            <td class="grid_3_3"></td>
-            <td class="grid_3_4"></td>
-            <td class="grid_3_5"></td>
-            <td class="grid_3_6"></td>
-            <td class="grid_3_7"></td>
-            <td class="grid_3_8"></td>
-        </tr>
-        <tr>
-            <td class="grid_4_0"></td>
-            <td class="grid_4_1"></td>
-            <td class="grid_4_2"></td>
-            <td class="grid_4_3"></td>
-            <td class="grid_4_4"></td>
-            <td class="grid_4_5"></td>
-            <td class="grid_4_6"></td>
-            <td class="grid_4_7"></td>
-            <td class="grid_4_8"></td>
-        </tr>
-        <tr>
-            <td class="grid_5_0"></td>
-            <td class="grid_5_1"></td>
-            <td class="grid_5_2"></td>
-            <td class="grid_5_3"></td>
-            <td class="grid_5_4"></td>
-            <td class="grid_5_5"></td>
-            <td class="grid_5_6"></td>
-            <td class="grid_5_7"></td>
-            <td class="grid_5_8"></td>
-        </tr>
-        <tr>
-            <td class="grid_6_0"></td>
-            <td class="grid_6_1"></td>
-            <td class="grid_6_2"></td>
-            <td class="grid_6_3"></td>
-            <td class="grid_6_4"></td>
-            <td class="grid_6_5"></td>
-            <td class="grid_6_6"></td>
-            <td class="grid_6_7"></td>
-            <td class="grid_6_8"></td>
-        </tr>
-        <tr>
-            <td class="grid_7_0"></td>
-            <td class="grid_7_1"></td>
-            <td class="grid_7_2"></td>
-            <td class="grid_7_3"></td>
-            <td class="grid_7_4"></td>
-            <td class="grid_7_5"></td>
-            <td class="grid_7_6"></td>
-            <td class="grid_7_7"></td>
-            <td class="grid_7_8"></td>
-        </tr>
-        <tr>
-            <td class="grid_8_0"></td>
-            <td class="grid_8_1"></td>
-            <td class="grid_8_2"></td>
-            <td class="grid_8_3"></td>
-            <td class="grid_8_4"></td>
-            <td class="grid_8_5"></td>
-            <td class="grid_8_6"></td>
-            <td class="grid_8_7"></td>
-            <td class="grid_8_8"></td>
-        </tr>
-    </table>
-    <table id="grid_hide" class="grid grid_hide" cellspacing=0 cellpadding=0>
-        <tr>
-            <td>1</td>
-            <td>2</td>
-            <td>3</td>
-        </tr>
-        <tr>
-            <td>4</td>
-            <td>5</td>
-            <td>6</td>
-        </tr>
-        <tr>
-            <td>7</td>
-            <td>8</td>
-            <td>9</td>
-        </tr>
-        <tr>
-            <td class="not_sure"></td>
-            <td class="sure"></td>
-            <td class="clear">清空</td>
-        </tr>
-    </table>
+    <div class="content">
+        <table id="grid" class="grid" cellspacing=0 cellpadding=0>
+            <tr>
+                <td class="grid_0_0"></td>
+                <td class="grid_0_1"></td>
+                <td class="grid_0_2"></td>
+                <td class="grid_0_3"></td>
+                <td class="grid_0_4"></td>
+                <td class="grid_0_5"></td>
+                <td class="grid_0_6"></td>
+                <td class="grid_0_7"></td>
+                <td class="grid_0_8"></td>
+            </tr>
+            <tr>
+                <td class="grid_1_0"></td>
+                <td class="grid_1_1"></td>
+                <td class="grid_1_2"></td>
+                <td class="grid_1_3"></td>
+                <td class="grid_1_4"></td>
+                <td class="grid_1_5"></td>
+                <td class="grid_1_6"></td>
+                <td class="grid_1_7"></td>
+                <td class="grid_1_8"></td>
+            </tr>
+            <tr>
+                <td class="grid_2_0"></td>
+                <td class="grid_2_1"></td>
+                <td class="grid_2_2"></td>
+                <td class="grid_2_3"></td>
+                <td class="grid_2_4"></td>
+                <td class="grid_2_5"></td>
+                <td class="grid_2_6"></td>
+                <td class="grid_2_7"></td>
+                <td class="grid_2_8"></td>
+            </tr>
+            <tr>
+                <td class="grid_3_0"></td>
+                <td class="grid_3_1"></td>
+                <td class="grid_3_2"></td>
+                <td class="grid_3_3"></td>
+                <td class="grid_3_4"></td>
+                <td class="grid_3_5"></td>
+                <td class="grid_3_6"></td>
+                <td class="grid_3_7"></td>
+                <td class="grid_3_8"></td>
+            </tr>
+            <tr>
+                <td class="grid_4_0"></td>
+                <td class="grid_4_1"></td>
+                <td class="grid_4_2"></td>
+                <td class="grid_4_3"></td>
+                <td class="grid_4_4"></td>
+                <td class="grid_4_5"></td>
+                <td class="grid_4_6"></td>
+                <td class="grid_4_7"></td>
+                <td class="grid_4_8"></td>
+            </tr>
+            <tr>
+                <td class="grid_5_0"></td>
+                <td class="grid_5_1"></td>
+                <td class="grid_5_2"></td>
+                <td class="grid_5_3"></td>
+                <td class="grid_5_4"></td>
+                <td class="grid_5_5"></td>
+                <td class="grid_5_6"></td>
+                <td class="grid_5_7"></td>
+                <td class="grid_5_8"></td>
+            </tr>
+            <tr>
+                <td class="grid_6_0"></td>
+                <td class="grid_6_1"></td>
+                <td class="grid_6_2"></td>
+                <td class="grid_6_3"></td>
+                <td class="grid_6_4"></td>
+                <td class="grid_6_5"></td>
+                <td class="grid_6_6"></td>
+                <td class="grid_6_7"></td>
+                <td class="grid_6_8"></td>
+            </tr>
+            <tr>
+                <td class="grid_7_0"></td>
+                <td class="grid_7_1"></td>
+                <td class="grid_7_2"></td>
+                <td class="grid_7_3"></td>
+                <td class="grid_7_4"></td>
+                <td class="grid_7_5"></td>
+                <td class="grid_7_6"></td>
+                <td class="grid_7_7"></td>
+                <td class="grid_7_8"></td>
+            </tr>
+            <tr>
+                <td class="grid_8_0"></td>
+                <td class="grid_8_1"></td>
+                <td class="grid_8_2"></td>
+                <td class="grid_8_3"></td>
+                <td class="grid_8_4"></td>
+                <td class="grid_8_5"></td>
+                <td class="grid_8_6"></td>
+                <td class="grid_8_7"></td>
+                <td class="grid_8_8"></td>
+            </tr>
+        </table>
+        <table id="grid_hide" class="grid grid_hide" cellspacing=0 cellpadding=0>
+            <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>5</td>
+                <td>6</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>8</td>
+                <td>9</td>
+            </tr>
+            <tr>
+                <td class="not_sure"></td>
+                <td class="sure"></td>
+                <td class="clear">清空</td>
+            </tr>
+        </table>
+    </div>
     <div class="footer">
         <button class="replay">重玩</button>
         <button class="submit">提交</button>
@@ -505,7 +510,7 @@
             var trueX = checkX(arr);
             var trueY = checkY(arr);
             if (trueX && trueY) {
-                alert('恭喜解数组成功')
+                alert('恭喜解数独成功')
             } else {
                 alert('非常遗憾，还有格子没连正确，请检查');
             }
@@ -517,7 +522,10 @@
         pushData();
         submit();
         oDom.replay[0].onclick = function () {
-            init();
+            var Q = confirm('重新开始？');
+            if(Q){
+                init();
+            }
         };
     }
 </script>
