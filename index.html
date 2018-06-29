@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>测试</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,target-densitydpi = medium-dpi, viewport-fit=cover">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-touch-fullscreen" content="YES">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+</head>
+<body>
+<h3 id="result"></h3>
+<h3 id="result1"></h3>
+<button id="btn">选择日期</button>
+<button id="btn1">选择日期2</button>
+<button id="btn2">选择日期2</button>
+<script>
+    var btn = document.getElementById('btn');
+    var btn1 = document.getElementById('btn1');
+    var btn2 = document.getElementById('btn2');
+    window.onload = function(){
+        // 检索
+       var date = localStorage.getItem("time");
+        if(date){
+            document.getElementById("result").innerHTML = date;
+        }
+        btn.onclick = function(){
+            // 存储
+            localStorage.setItem("time", "2018年6月29日--2018年7月4日");
+        };
+        btn1.onclick = function(){
+            // 存储
+            localStorage.setItem("time", "2018年5月29日--2018年6月4日");
+        }
+        btn2.onclick = function(){
+            // 存储
+            var html = '<span>' + date + '</span>';
+            document.getElementById("result1").innerHTML = html;
+        }
+    }
+
+</script>
+</body>
+</html>
