@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <title>A股风云</title>
+    <style>
+        /*业务知识问答*/
+        html, body {
+            padding: 0;
+            margin: 0;
+            font-family: PingFangSC-Regular;
+            min-height:100%;
+            min-width: 320px;
+        }
+
+        body {
+            text-align: justify;
+            background-color: #f0f0f0;
+            padding-top: constant(safe-area-inset-top);
+            padding-left: constant(safe-area-inset-left);
+            padding-right: constant(safe-area-inset-right);
+            padding-bottom: constant(safe-area-inset-bottom);
+        }
+
+        .fontSize38 {
+            font-size: .42rem !important;
+        }
+
+        .fontSize30 {
+            font-size: .30rem !important;
+        }
+
+        .fontSize32 {
+            font-size: .32rem !important;
+        }
+
+        #case .orange-b {
+            color: #fe813f;
+            font-size: .39rem;
+        }
+
+        #case .orange {
+            color: #fe813f !important;
+        }
+        #case .blue {
+            text-shadow: rgb(79, 129, 189) 2px 2px 10px;
+            color: rgb(30, 155, 232);
+        }
+        #case .header {
+            padding: 0 .3rem;
+        }
+
+        #case .header .source {
+            font-size: .24rem;
+            color: #888888;
+            border-bottom: solid 1px #d8d8d8;
+            padding-bottom: .1rem;
+        }
+
+        #case .color2 {
+            color: #222222;
+            font-size: .32rem;
+        }
+
+        #case .header .title {
+            padding: .41rem .09rem .3rem .09rem;
+            font-size: .4rem;
+            color: #222222;
+            text-indent: -0.14rem;
+        }
+
+        #case .content {
+            padding: 0 .31rem;
+            margin-bottom: 1rem;
+        }
+
+        #case .content .foreword-section {
+            padding: .31rem .04rem .6rem .04rem;
+            font-size: .25rem;
+            line-height: .5rem;
+            color: #555555;
+        }
+
+        #case .content .foreword-section1 {
+            padding-bottom: 0;
+        }
+
+        #case .content .foreword-section p:last-child {
+            text-indent: 2em;
+        }
+
+        #case .content .foreword-section1 p:last-child {
+            text-indent: 0;
+            margin-top: .2rem;
+        }
+
+        #case .content .main-points {
+            margin-top: 0.3rem;
+            padding: .3rem;
+            background-color: #f9e9d2;
+            position: relative;
+        }
+
+        #case .content .main-points img {
+            width: 1.3rem;
+            height: .66rem;
+            position: absolute;
+            left: 0;
+            top: -0.33rem;
+        }
+
+        #case .content .main-points .title {
+            text-align: center;
+            font-size: .32rem;
+            margin-bottom: .3rem;
+            color: #222;
+        }
+
+        #case .content .main-points .text {
+            font-size: .24rem;
+            color: #555;
+            line-height: .5rem;
+        }
+
+        #case .content .section {
+            padding: 0 .3rem .3rem .3rem;
+            background-color: #fff;
+            margin-top: .4rem;
+        }
+        #case .content .section img{
+            width: 100%;
+        }
+        #case .content .section .code{
+            margin-top: 0.3rem;
+            text-align: center;
+        }
+        #case .content .section .code p{
+            margin-bottom: 0.2rem;
+        }
+        #case .content .section .code img{
+            width: 50%;
+        }
+
+        #case .content .section .title {
+            font-size: .32rem;
+            color: #fff;
+            height: .71rem;
+            line-height: .71rem;
+            text-align: center;
+            margin: 0 -0.3rem 0 -0.3rem;
+            background: -webkit-linear-gradient(#e85959, #d93737); /* Safari 5.1 - 6.0 */
+            background: -o-linear-gradient(#e85959, #d93737); /* Opera 11.1 - 12.0 */
+            background: -moz-linear-gradient(#e85959, #d93737); /* Firefox 3.6 - 15 */
+            background: linear-gradient(#e85959, #d93737); /* 标准的语法 */
+            position: relative;
+        }
+
+        #case .content .section .title .triangle {
+            width: 0;
+            height: 0;
+            position: absolute;
+            left: 50%;
+            border-left: .17rem solid transparent;
+            border-right: .17rem solid transparent;
+            border-top: .24rem solid  #d93737;
+            bottom: -.17rem;
+            margin-left: -.12rem;
+        }
+
+        #case .content .section .point {
+            font-size: .3rem;
+            color: #555;
+            line-height: .48rem;
+            padding: .3rem 0;
+        }
+
+        #case .content .section .case-point {
+            padding-top: 0;
+        }
+
+        #case .content .section .point .p-title .icon {
+            width: .6rem;
+            height: .6rem;
+            line-height: .6rem;
+            color: #fff;
+            background: #fe813f;
+            font-style: normal;
+            border-radius: 50%;
+            text-align: center;
+            position: absolute;
+            left: 0;
+        }
+
+        #case .content .section .point .p-title {
+            padding-left: .80rem;
+            font-size: .32rem;
+            color: #222;
+            position: relative;
+            min-height: .6rem;
+            line-height: .5rem;
+        }
+
+        #case .content .section .point .p-title1 {
+            font-size: .32rem;
+            color: #222;
+            margin-bottom: .2rem;
+        }
+
+        #case .content .section .point .text {
+            font-size: .28rem;
+            line-height: .5rem;
+            color: #555;
+            padding-top: .15rem;
+        }
+        #case .content .section .point .text p{
+            margin-bottom: 0.2rem;
+        }
+        #case .content .section .point .text p:last-child{
+            margin-bottom: 0;
+        }
+        #case .content .section .point .img {
+            margin: .3rem 0;
+        }
+
+        #case .content .section .point .img img {
+            width: 100%;
+        }
+
+        #case .content .section .point .expand {
+            background: #fbeace;
+            padding: .3rem;
+            margin-top: .3rem;
+        }
+
+        #case .content .section .point .expand1 {
+            padding: .65rem .3rem .3rem .3rem;
+            margin: .7rem 0 .3rem 0;
+            position: relative;
+            background-color: #ffefD8;
+        }
+
+        #case .content .section .point .expand1 img {
+            position: absolute;
+            width: 1.53rem;
+            height: 1.26rem;
+            left: 50%;
+            margin-left: -0.76rem;
+            top: -0.63rem;
+        }
+
+        #case .content .section .ask {
+            border-bottom: dashed 1px #b8b8b8;
+            padding: .5rem 0;
+            font-size: .28rem;
+        }
+
+        #case .content .section .ask .question {
+            position: relative;
+            margin-bottom: .2rem;
+        }
+
+        #case .content .section .ask .question p {
+            color: #222;
+            padding-left: 1.2rem;
+            line-height: .6rem;
+        }
+
+        #case .content .section .ask .question span {
+            position: absolute;
+            left: 0;
+            height: .6rem;
+            padding-left: .3rem;
+            padding-right: .43rem;
+            font-family: FZZCHJW--GB1-0;
+            line-height: .55rem;
+            font-style: normal;
+            color: #ffffff;
+            background: url(../image/question-icon.png) no-repeat;
+            background-size: 100% 100%;
+        }
+
+        #case .content .section .ask .answer {
+            color: #888;
+            line-height: .5rem;
+        }
+
+        #case .content .disclaimer {
+            padding: .77rem 0 .47rem 0;
+            font-size: .28rem;
+            color: #888888;
+        }
+
+        #case .content .case-disclaimer {
+            padding: .47rem 0 .47rem 0;
+        }
+
+        #case .content .disclaimer .title {
+            text-align: center;
+            padding-bottom: .64rem;
+        }
+
+        #case .content .disclaimer .disclaimer-text {
+            padding-top: .47rem;
+            font-family: MicrosoftYaHei;
+            line-height: .59rem;
+        }
+
+        #case .content .disclaimer .hr img {
+            width: 100%;
+        }
+
+        #case .footer .disclaimer {
+            margin: .2rem .39rem 0 .39rem;
+            border-top: dashed 1px #b8b8b8;
+            padding: .32rem .24rem .27rem 0;
+            font-size: .24rem;
+            line-height: .39rem;
+            color: #888888;
+        }
+
+        #case .footer img {
+            width: 100%;
+        }
+
+        #case .content .del-indent1{
+            margin-top: 0.2rem;
+        }
+        #case .content .del-indent span{
+            color: #d2722d;
+            font-size: 0.36rem;
+            font-weight: bold;
+        }
+        #case .content .dt_expand_til{
+            text-align: center;
+            margin-bottom: 0.2rem;
+        }
+        #case .content .jjdt_zzt{
+            color: #d2722d;
+            font-size: 0.36rem;
+            font-weight: bold;
+        }
+        #case .content .section_dt_code{
+            padding-top: 0.3rem;
+        }
+        #case .content .section .dt_code_img{
+            text-align: center;
+            margin-top: .35rem;
+        }
+
+        #case .content .section .dt_code_img img{
+            width: 100%;
+        }
+        #case .content .section_dt_code p{
+            font-size:  0.36rem;
+            line-height: .5rem;
+            color: #555;
+            font-weight: bold;
+        }
+        .section_dt_code{
+            text-align: center;
+            margin-bottom: 0.3rem;
+        }
+        #case .btn_div{
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: #3b7be6;
+            height:0.9rem;
+            line-height: 0.85rem;
+            text-align: center;
+            color: #fff;
+            border-radius: 0.05rem;
+            font-size: 0.35rem;
+            z-index:1;
+        }
+
+        .inside_btn_div{
+            position:absolute;
+            text-align: center;
+            width: 100%;
+        }
+    </style>
+</head>
+<body id="case">
+<div class="header">
+    <div class="title fontSize42">A股风云，如何成为自己的武林盟主？武当派大师与您道来武林绝学</div>
+    <div class="source fontSize32">
+        文章来源：“微中投”微信公众号
+    </div>
+</div>
+<div class="content">
+    <div class="foreword-section foreword-section1 fontSize30">
+        <p>
+            A股武林、风云涌动。一位名为“中美贸易”的大侠四处挑战，让江湖不仅掀起了涟漪，更是刮起了一波风云。如何在现代化的A股江湖，占据一席之地，武当派大师将与您道来，不得不拥有的武林绝学！
+        </p>
+    </div>
+    <div class="section">
+        <div class="title fontSize32">
+            <div class="triangle"></div>
+            行走A股江湖
+        </div>
+        <div class="point">
+            <div class="text fontSize30">
+                <p>
+                    当下市场波云诡谲，江湖风声鹤唳，两市3529家上市公司各自为阵，自成一体，与“中美贸易”共同华山论剑，无奈悉数败北，溃不成军，但江湖上有着多方势力，随时大战在即，风云莫测。从A股江湖诞生之日起，历经二十多载，期间有多少英雄好汉笑傲江湖，如重阳、高毅等；也有不少私募好汉抱憾终身。
+                </p>
+                <div class="main-points">
+                    <p>
+                        <span class="jjdt_zzt">中投证券金牌投顾金昭</span>作为中投证券上海P20俱乐部投资团队带头人，拥有八年以上证券从业经历，以寻找低估值和基本面拐点为投资核心，在江湖上自封武当一派。
+                    </p>
+                    <p>
+                        金昭大师，武功极高，内力深厚，学习掌握了永御剑法，并自创了多种剑术。他行走A股江湖，其运用的剑术独树一帜，制敌无数，现分享与各位A股江湖人，各自领悟，亦可与金昭大师师友同行于江湖，叱咤风云。
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <div class="title fontSize32">
+            <div class="triangle"></div>
+            永御剑法
+        </div>
+        <div class="point">
+            <div class="text fontSize30">
+                <p>
+                    江湖上，常见的剑术有刺、劈、点、挑、斩、削等，同时配合不同的步伐，一攻一防成为克敌制胜的关键。不少A股江湖人，因为对剑术掌握的熟练程度不一，在接受真正挑战的时候，进攻中往往会暴露防御的弱点，甚至有的完全没有防御，这样的场景下，结果往往失败者居多，杀敌不成亦伤己。如果此前他们学习过金昭大师自创的永御剑法，结果可能就完全不一样。 </p>
+                <div class="main-points">
+                    <p>
+                        什么是永御剑法？这套剑法的核心在于攻防兼备，稳中有进，进攻时永远不要忘记防御；其二，不盲目采取进攻，看准对方要点，运用基本面拐点为风向标，风险收益比为标尺，专注于一击必中。金昭大师8年多行走江湖至今，运用永御剑法，成效显著，体现出超强的市值管理能力，经得住市场震荡的洗礼，曾实现了复合增长率30%，在A股江湖一度名声大噪。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <div class="title fontSize32">
+            <div class="triangle"></div>
+            量价共振剑法
+        </div>
+        <div class="point">
+            <div class="text fontSize30">
+                <div class="main-points">
+                    <p>
+                        剑法以攻击性占主导地位，其中运用刺、劈、扫等动作往往能够一招毙命。在A股市场上，主力运作个股的手法如出一辙，打压吸筹，诱多出货等等眼花缭乱。金昭大师通过独创的“量价共振”剑法，清晰地看清主力的运作手法，适时给予对方致命一击，往往能够获得较好的结果。
+                    </p>
+                    <p>
+                        （图例金龙汽车，一剑封喉，擒拿龙头）
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <div class="title fontSize32">
+            <div class="triangle"></div>
+            人剑合一
+        </div>
+        <div class="point">
+            <div class="text fontSize30">
+                <p>
+                    剑术的最高境界便是手中无剑，心中有剑，人剑合一。精髓之所在见招拆招，灵活应对，对变化的理解是深入骨髓的。
+                </p>
+                <div class="main-points">
+                    <p>
+                        在A股市场中，由于存在不同的影响因素，市场千变万化。A股江湖投资人，往往要更多的耐心、韧心和一颗初心，需要做到灵动运用，博弈之间，人剑合一。比如近期江湖上的网红大侠——“中美贸易”，“他”所到之处，花草失色，飞禽走兽无不惊慌失逃，回避为上；而与之相反，在运用“永御剑法”的同时，也可结合一些进攻剑法，寻找机会破敌获胜，比如农业板块的农发种业，宏辉果蔬等。
+                    </p>
+                    <p>
+                        金昭大师善于在江湖变化风云之间运筹帷幄，看清其利弊关系，避免传统投资上的误区，往往能够扭转乾坤，化被动为主动，这也是分享给A股江湖人的宝贵经验。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <div class="title fontSize32">
+            <div class="triangle"></div>
+            独门绝学
+        </div>
+        <div class="point">
+            <div class="text fontSize30">
+                <div class="main-points">
+                    <p>
+                        金昭大师行走于A股江湖，经过勤习研究，创造了属于自己的独门绝学有永御剑法、量价共振趋势法（市值管理）、错配波段法（热点轮动）、潜龙升空法（龙头跟庄）、对冲风控模型（不含股指期货工具）等等。
+                    </p>
+                    <p>
+                        任何一位行走A股江湖投资人，不管你是初来乍到，还是身在江湖多年，学习更多的武功秘籍，强大自己，这都是一件益事，有能力者更可将所学融会贯通，形成自己的一门绝学。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="btn_div">
+    <div class="inside_btn_div">
+        点击查阅投顾详情
+    </div>
+</div>
+<script>
+    (function (doc, win) {
+        var dolEl = doc.documentElement,
+            resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+            recalc = function () {
+                var clientWidth = dolEl.clientWidth;
+                if (!clientWidth) {
+                    return
+                }
+                if (clientWidth >= 750) {
+                    dolEl.style.fontSize = '100px';
+                } else {
+                    dolEl.style.fontSize = 100 * (clientWidth / 750) + 'px';
+                }
+            };
+        if (!doc.addEventListener) {
+            return
+        }
+        win.addEventListener(resizeEvt, recalc, false);
+        doc.addEventListener('DOMContentLoaded', recalc, false);
+    })(document, window);
+</script>
+</body>
+</html>
